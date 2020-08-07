@@ -1,0 +1,41 @@
+{
+  "name": "with-typescript",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "next",
+    "build": "node scripts/build.js",
+    "analyze": "ANALYZE=true yarn build",
+    "start": "next start",
+    "export": "yarn build && next export -o dist",
+    "dubug": "NODE_OPTIONS='--inspect' next dev",
+    "type-check": "tsc"
+  },
+  "browserslist": [
+    ">0.3%",
+    "IE 10",
+    "not dead",
+    "not op_mini all"
+  ],
+  "dependencies": {
+    "next": "^9.5.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^9.5.1",
+    "@types/node": "^12.12.53",
+    "@types/react": "^16.9.44",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "next-compose-plugins": "^2.2.0",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "rimraf": "^3.0.2",
+    "sass": "^1.26.10",
+    "shelljs": "^0.8.4",
+    "typescript": "3.9.7"
+  },
+  "license": "ISC"
+}
