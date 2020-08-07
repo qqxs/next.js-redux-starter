@@ -1,5 +1,5 @@
 {
-  "name": "with-typescript",
+  "name": "next.js-redux-starter",
   "version": "0.0.1",
   "scripts": {
     "dev": "next",
