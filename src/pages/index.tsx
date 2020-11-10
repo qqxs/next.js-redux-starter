@@ -10,9 +10,9 @@ const IndexPage = () => {
     dispatch(startClock());
   }, [dispatch]);
 
-  const getUser = () => {
-    fetch("/api/user");
-  };
+  // const getUser = () => {
+  //   fetch("/api/user");
+  // };
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
