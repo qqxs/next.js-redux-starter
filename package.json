@@ -19,7 +19,9 @@
   "dependencies": {
     "next": "^9.5.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "redux-observable": "^1.2.0",
+    "rxjs": "^6.6.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.5.1",

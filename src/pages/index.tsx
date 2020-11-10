@@ -1,14 +1,18 @@
 import Link from "next/link";
-import Layout from "../components/Layout";
+import Layout from "@components/Layout";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { startClock } from "../store/actions/actions";
+import { startClock } from "@store/actions/actions";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(startClock());
   }, [dispatch]);
+
+  const getUser = () => {
+    fetch("/api/user");
+  };
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
