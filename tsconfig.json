@@ -18,8 +18,10 @@
     "strict": true,
     "target": "esnext",
     "baseUrl": ".",
+    "typeRoots": [
+      "./src/@types/"
+    ],
     "paths": {
-      "*": ["*"],
       "@constant/*": ["src/constant/*"],
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"],
