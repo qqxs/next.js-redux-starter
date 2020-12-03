@@ -2,16 +2,20 @@ import { useMemo } from "react";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunkMiddleware from "redux-thunk";
+import logger from "redux-logger";
 import reducers from "./reducers/reducers";
 
-let store: any;
+let store: ReduxStore.StoreState | undefined;
+
+const NODE_ENV = process.env.NODE_ENV;
 
 function initStore(initialState: any) {
-  return createStore(
-    reducers,
-    initialState,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
-  );
+  const middlewares =
+    NODE_ENV === "development"
+      ? composeWithDevTools(applyMiddleware(thunkMiddleware, logger))
+      : applyMiddleware(thunkMiddleware);
+
+  return createStore(reducers, initialState, middlewares);
 }
 
 export const initializeStore = (preloadedState: any) => {
@@ -21,6 +25,7 @@ export const initializeStore = (preloadedState: any) => {
   // with the current state in the store, and create a new store
   if (preloadedState && store) {
     _store = initStore({
+      // @ts-ignore
       ...store.getState(),
       ...preloadedState,
     });
@@ -31,6 +36,7 @@ export const initializeStore = (preloadedState: any) => {
   // For SSG and SSR always create a new store
   if (typeof window === "undefined") return _store;
   // Create the store once in the client
+  // @ts-ignore
   if (!store) store = _store;
 
   return _store;

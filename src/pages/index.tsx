@@ -3,16 +3,16 @@ import Layout from "@components/Layout";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { startClock } from "@store/actions/actions";
+import services from "@models/500px";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(startClock());
+    services.getPhotos().then((res) => {
+      console.log(res);
+    });
   }, [dispatch]);
-
-  // const getUser = () => {
-  //   fetch("/api/user");
-  // };
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
@@ -35,5 +35,12 @@ const IndexPage = () => {
     </Layout>
   );
 };
+
+// export const getServerSideProps = () => {
+
+//   return {
+//     props: {},
+//   };
+// };
 
 export default IndexPage;

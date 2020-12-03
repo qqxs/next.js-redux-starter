@@ -21,30 +21,33 @@ const app = next({
 
 const handle = app.getRequestHandler();
 
-app
-  .prepare()
-  .then(() => {
-    const server = express();
+(async () => {
+  app
+    .prepare()
+    .then(() => {
+      const server = express();
 
-    if (dev && devProxy) {
-      Object.keys(devProxy).forEach((api: string) => {
-        // @ts-ignore
-        server.use(api, createProxyMiddleware(devProxy[api]));
-      });
-    }
-
-    server.all("*", (req, res) => {
-      handle(req, res);
-    });
-    // @ts-ignore
-    server.listen(port, (err) => {
-      if (err) {
-        throw err;
+      if (dev && devProxy) {
+        Object.keys(devProxy).forEach((api: string) => {
+          // @ts-ignore
+          server.use(api, createProxyMiddleware(devProxy[api]));
+        });
       }
-      console.log(`> Ready on http://localhost:${port}`);
+
+      server.all("*", (req, res) => {
+        handle(req, res);
+      });
+
+      // @ts-ignore
+      server.listen(port, (err) => {
+        if (err) {
+          throw err;
+        }
+        console.log(`> Ready on http://localhost:${port}`);
+      });
+    })
+    .catch((err) => {
+      console.log("An error occurred, unable to start the server");
+      console.log(err);
     });
-  })
-  .catch((err) => {
-    console.log("An error occurred, unable to start the server");
-    console.log(err);
-  });
+})();
