@@ -14,6 +14,6 @@ module.exports = withPlugins([withBundleAnalyzer], {
   // /docs/about
   // basePath: '/docs',
   reactStrictMode: true,
-  // CDN
+  // 静态资源前缀 可以使用CDN
   assetPrefix: isProd ? "" : "",
 });
