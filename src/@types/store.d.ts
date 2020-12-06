@@ -1,4 +1,10 @@
+import { AnyAction } from "redux";
+
 declare namespace ReduxStore {
+  export interface ReduxAction<T> extends AnyAction {
+    payload?: T;
+  }
+
   // all store state
   export interface StoreState {
     counter: number;

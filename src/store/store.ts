@@ -1,21 +1,31 @@
 import { useMemo } from "react";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunkMiddleware from "redux-thunk";
 import logger from "redux-logger";
+import { createEpicMiddleware } from "redux-observable";
 import reducers from "./reducers/reducers";
+import Epic from "./epics/index";
+import { ReduxStore } from "src/@types/store";
 
 let store: ReduxStore.StoreState | undefined;
 
 const NODE_ENV = process.env.NODE_ENV;
 
-function initStore(initialState: any) {
+function initStore(initialState: ReduxStore.StoreState) {
+  // 执行 `redux-observable`的 `createEpicMiddleware` 生成redux 中间件
+  const epicMiddleware = createEpicMiddleware();
+
   const middlewares =
     NODE_ENV === "development"
-      ? composeWithDevTools(applyMiddleware(thunkMiddleware, logger))
-      : applyMiddleware(thunkMiddleware);
+      ? composeWithDevTools(applyMiddleware(epicMiddleware, logger))
+      : applyMiddleware(epicMiddleware);
 
-  return createStore(reducers, initialState, middlewares);
+  // @ts-ignore
+  const store = createStore(reducers, initialState, middlewares);
+  // run
+  epicMiddleware.run(Epic);
+
+  return store;
 }
 
 export const initializeStore = (preloadedState: any) => {

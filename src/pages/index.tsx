@@ -1,18 +1,14 @@
 import Link from "next/link";
 import Layout from "@components/Layout";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { startClock } from "@store/actions/actions";
-import services from "@models/500px";
+
+import { fetchPhotosAction } from "@store/actions/photos.actions";
+import { pingAction } from "@store/actions/ping.actions";
 
 const IndexPage = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(startClock());
-    services.getPhotos().then((res) => {
-      console.log(res);
-    });
-  }, [dispatch]);
+
+  console.log("IndexPage");
 
   return (
     <Layout title="Home | Next.js + TypeScript Example">
@@ -22,6 +18,15 @@ const IndexPage = () => {
         </Link>
         {/* <span>{process.env.customKey}</span> */}
       </p>
+
+      <button
+        onClick={() => {
+          dispatch(fetchPhotosAction());
+          dispatch(pingAction());
+        }}
+      >
+        点击
+      </button>
 
       <a href="https://nextjs.org/" target="_blank">
         <svg height="200" viewBox="0 0 148 90" version="1.1">
