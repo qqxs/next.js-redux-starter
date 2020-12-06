@@ -4,6 +4,7 @@
     "keywords": [
         "next.js",
         "redux",
+        "redux-observable",
         "SSR",
         "express"
     ],
